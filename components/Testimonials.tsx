@@ -19,7 +19,7 @@ export default function Testimonials() {
     if (reduce || paused) return;
     const id = setInterval(() => {
       setActive((a) => (a + 1) % testimonials.length);
-    }, 5000);
+    }, 3000);
     return () => clearInterval(id);
   }, [reduce, paused]);
 

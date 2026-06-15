@@ -1,9 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import Image from "next/image";
 import Link from "next/link";
-import { HeroCanvas } from "@/components/three/HeroCanvas";
+import { HeroMascot } from "@/components/HeroMascot";
 import { CtaButton } from "@/components/ui/cta-button";
 
 const Hero = () => {
@@ -78,28 +77,10 @@ const Hero = () => {
           </motion.div>
         </motion.div>
 
-        {/* 3D stage: contained world + grounded mascot */}
+        {/* Stage: clean brand panel framing the interactive mascot */}
         <div className="relative h-[48vh] min-h-[360px] lg:col-span-6 lg:h-[80vh]">
-          {/* solid stage that frames and bounds the 3D world */}
-          <div className="absolute inset-0 overflow-hidden rounded-[2.25rem] bg-blue-100">
-            <HeroCanvas />
-          </div>
-          {/* mascot grounded at the base of the stage, in front of the world */}
-          <motion.div
-            initial={{ opacity: 0, y: reduce ? 0 : 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-x-0 bottom-0 z-10 flex justify-center"
-          >
-            <Image
-              src="/hero-man.png"
-              alt="Vision and Path career mentor"
-              width={620}
-              height={760}
-              priority
-              className="h-[46vh] w-auto object-contain object-bottom drop-shadow-2xl lg:h-[74vh]"
-            />
-          </motion.div>
+          <div className="absolute inset-0 overflow-hidden rounded-[2.25rem] bg-blue-100" />
+          <HeroMascot />
         </div>
       </div>
     </section>
