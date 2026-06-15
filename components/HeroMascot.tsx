@@ -3,61 +3,50 @@
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 /**
- * The grounded 3D-style mascot, made to feel alive without any WebGL:
- *  - gentle idle float (breathing)
- *  - a friendly wave on hover (the raised hand swings)
- *  - a periodic blink, crossfading to an eyes-closed frame
- *    (public/hero-man-blink.png, generated from the base render)
- * All effects respect prefers-reduced-motion.
+ * The grounded 3D-style mascot, made to feel alive without any WebGL: it idles
+ * gently and blinks every 2s by crossfading to an eyes-closed frame
+ * (public/hero-man-blink.png, generated from the base render).
+ * Blinking is disabled under prefers-reduced-motion.
+ *
+ * Container-driven: it fills its positioned parent and bottom-aligns, so the
+ * bust's chest-crop sits flush with (and is hidden by) the parent's edge.
  */
-export function HeroMascot() {
+export function HeroMascot({
+  className,
+  imgClassName,
+}: {
+  className?: string;
+  imgClassName?: string;
+}) {
   const reduce = useReducedMotion();
   const [blinking, setBlinking] = useState(false);
 
   useEffect(() => {
     if (reduce) return;
-    let timer: ReturnType<typeof setTimeout>;
-
-    const open = () => {
-      const wait = 2200 + Math.random() * 2800; // 2.2–5s between blinks
-      timer = setTimeout(blink, wait);
-    };
-    const blink = () => {
+    const interval = setInterval(() => {
       setBlinking(true);
-      timer = setTimeout(() => {
-        setBlinking(false);
-        // ~30% chance of a quick double-blink
-        if (Math.random() < 0.3) {
-          timer = setTimeout(() => {
-            setBlinking(true);
-            timer = setTimeout(() => {
-              setBlinking(false);
-              open();
-            }, 120);
-          }, 160);
-        } else {
-          open();
-        }
-      }, 130);
-    };
-
-    timer = setTimeout(blink, 2000); // first blink ~2s after mount
-    return () => clearTimeout(timer);
+      setTimeout(() => setBlinking(false), 130);
+    }, 2000);
+    return () => clearInterval(interval);
   }, [reduce]);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: reduce ? 0 : 40 }}
+      initial={{ opacity: 0, y: reduce ? 0 : 36 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-      className="absolute inset-x-0 bottom-0 z-10 flex justify-center"
+      transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+      className={cn(
+        "absolute inset-0 flex items-end justify-center",
+        className,
+      )}
     >
       <motion.div
-        className="relative cursor-pointer"
+        className={cn("relative h-[86%] w-auto sm:h-[88%]", imgClassName)}
         style={{ transformOrigin: "50% 100%" }}
-        animate={reduce ? undefined : { y: [0, -7, 0] }}
+        animate={reduce ? undefined : { y: [0, -6, 0] }}
         transition={
           reduce
             ? undefined
@@ -71,8 +60,8 @@ export function HeroMascot() {
           reduce
             ? undefined
             : {
-                rotate: [0, 5, -3, 4, -2, 0],
-                transition: { duration: 1.1, ease: "easeInOut" },
+                rotate: [0, 4, -2, 3, -1, 0],
+                transition: { duration: 1, ease: "easeInOut" },
               }
         }
       >
@@ -83,7 +72,7 @@ export function HeroMascot() {
           width={620}
           height={760}
           priority
-          className="h-[46vh] w-auto object-contain object-bottom drop-shadow-2xl lg:h-[74vh]"
+          className="h-full w-auto object-contain drop-shadow-2xl"
         />
         {/* overlay: eyes closed, crossfaded in for a blink */}
         <Image
@@ -92,7 +81,7 @@ export function HeroMascot() {
           aria-hidden
           width={620}
           height={760}
-          className="pointer-events-none absolute inset-0 h-full w-full object-contain object-bottom transition-opacity duration-75 ease-out"
+          className="pointer-events-none absolute inset-0 h-full w-full object-contain transition-opacity duration-75 ease-out"
           style={{ opacity: blinking ? 1 : 0 }}
         />
       </motion.div>

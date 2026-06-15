@@ -31,21 +31,20 @@ export const PlacementBridge = () => {
   const reduce = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden bg-navy py-20 text-white md:py-28">
-      {/* night-sky texture */}
-      <div className="pointer-events-none absolute inset-0 bg-dotgrid opacity-[0.07]" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+    <section className="relative overflow-hidden bg-blue-100 py-20 text-ink md:py-28">
+      <div className="pointer-events-none absolute inset-0 bg-dotgrid opacity-45" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue/15 to-transparent" />
 
       <div className="container relative z-10 mx-auto max-w-6xl px-4 md:px-6">
         {/* Heading */}
         <div className="mx-auto max-w-2xl text-center">
-          <span className="font-mono text-xs font-medium uppercase tracking-[0.22em] text-yellow">
+          <span className="font-mono text-xs font-medium uppercase tracking-[0.22em] text-blue-700">
             Our candidates now work at
           </span>
           <h2 className="font-display mt-4 text-4xl font-bold tracking-tight md:text-5xl">
             Talent, bridged to the best.
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-white/65">
+          <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-ink-soft">
             Vision &amp; Path connects ambitious people with world-class teams —
             and walks with them from first conversation to first day.
           </p>
@@ -193,7 +192,7 @@ export const PlacementBridge = () => {
                 <div className="relative grid h-24 w-24 place-items-center">
                   <div className="absolute inset-0 rounded-full bg-yellow/25 blur-xl" />
                   <div
-                    className={`absolute inset-0 rounded-full border border-dashed border-white/25 ${
+                    className={`absolute inset-0 rounded-full border border-dashed border-blue/25 ${
                       reduce ? "" : "animate-spin-slow"
                     }`}
                   />
@@ -219,7 +218,7 @@ export const PlacementBridge = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.4 }}
                   transition={{ delay: 0.5 + i * 0.1, duration: 0.6, ease }}
-                  className="flex h-16 items-center justify-center rounded-2xl border border-white/10 bg-white px-4 shadow-lg transition-transform duration-300 hover:-translate-y-1"
+                  className="flex h-16 items-center justify-center rounded-2xl border border-blue/10 bg-white px-4 shadow-lg transition-transform duration-300 hover:-translate-y-1"
                 >
                   <Image
                     src={company.src}
@@ -236,13 +235,13 @@ export const PlacementBridge = () => {
           {/* Labels row, aligned under the columns */}
           <div className="mt-6 flex items-center">
             <div className="w-44 text-center">
-              <span className="font-mono text-xs font-semibold uppercase tracking-[0.22em] text-blue-100">
+              <span className="font-mono text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">
                 Talent
               </span>
             </div>
             <div className="flex-1" />
             <div className="w-44 text-center">
-              <span className="font-mono text-xs font-semibold uppercase tracking-[0.22em] text-yellow">
+              <span className="font-mono text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">
                 Hired at
               </span>
             </div>
@@ -252,7 +251,7 @@ export const PlacementBridge = () => {
         {/* ===== Mobile bridge ===== */}
         <div className="mt-12 md:hidden">
           {/* Talent */}
-          <p className="mb-4 text-center font-mono text-xs font-semibold uppercase tracking-[0.22em] text-blue-100">
+          <p className="mb-4 text-center font-mono text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">
             Talent
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
@@ -276,7 +275,7 @@ export const PlacementBridge = () => {
           {/* Connector + hub */}
           <div className="relative my-6 flex flex-col items-center">
             <span
-              className={`block h-10 w-px bg-gradient-to-b from-blue-100/60 to-yellow/60 ${
+              className={`block h-10 w-px bg-gradient-to-b from-blue/50 to-yellow/70 ${
                 reduce ? "" : "animate-pulse"
               }`}
             />
@@ -293,21 +292,21 @@ export const PlacementBridge = () => {
               </div>
             </div>
             <span
-              className={`block h-10 w-px bg-gradient-to-b from-yellow/60 to-blue-100/60 ${
+              className={`block h-10 w-px bg-gradient-to-b from-yellow/70 to-blue/50 ${
                 reduce ? "" : "animate-pulse"
               }`}
             />
           </div>
 
           {/* Companies */}
-          <p className="mb-4 text-center font-mono text-xs font-semibold uppercase tracking-[0.22em] text-yellow">
+          <p className="mb-4 text-center font-mono text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">
             Hired at
           </p>
           <div className="grid grid-cols-2 gap-3">
             {companies.map((company) => (
               <div
                 key={company.name}
-                className="flex h-14 items-center justify-center rounded-2xl border border-white/10 bg-white px-4 shadow-lg"
+                className="flex h-14 items-center justify-center rounded-2xl border border-blue/10 bg-white px-4 shadow-lg"
               >
                 <Image
                   src={company.src}
